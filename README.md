@@ -26,10 +26,12 @@ end
 Querying and updating the database is made easy with WORM::SQLObject's methods like:
 * `::all`
 * `::count`
+* `::destroy_all`
 * `::find`
 * `::first`
 * `::last`
 * `::where`
+* `#create`
 * `#save`
 * `#destroy`
 

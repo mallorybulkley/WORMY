@@ -28,8 +28,12 @@ class SQLObject
     .first.map(&:to_sym)
   end
 
-  def self.count
-    all.count
+  def self.count(params)
+    where(params).count
+  end
+
+  def self.destroy_all(params)
+    self.where(params).each(&:destroy)
   end
 
   def self.finalize!
