@@ -1,4 +1,4 @@
-require_relative 'lib/sql_object'
+require_relative 'lib/base'
 
 HP_DB_FILE = 'harry_potter.db'
 HP_SQL_FILE = 'harry_potter.sql'
