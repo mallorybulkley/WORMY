@@ -13,7 +13,7 @@ A lightweight Object-Relational Mapping (ORM) library for Ruby. Allows you to ke
 ## API
 Associations between models are defined by simple class methods, like so:
 ```
-class Pet < SQLObject
+class Pet < WORM::Base
   belongs_to :owner,
     class_name: "Wizard"
 
@@ -23,7 +23,7 @@ class Pet < SQLObject
 end
 ```
 
-Querying and updating the database is made easy with WORM::SQLObject's methods like:
+Querying and updating the database is made easy with WORM::Base's methods like:
 * `::all`
 * `::count`
 * `::destroy_all`
@@ -36,6 +36,6 @@ Querying and updating the database is made easy with WORM::SQLObject's methods l
 * `#destroy`
 
 ## About WORM
-WORM opens a connection to a provided database file by instantiating a singleton of SQLite3::Database via DBConnection. DBConnection uses native SQLite3::Database methods (`execute`, `execute2`, `last_insert_row_id`) to allow WORM to perform complex SQL queries using heredocs. The `Searchable` and `Associatable` modules extend SQLObject to provide an intuitive API.
+WORM opens a connection to a provided database file by instantiating a singleton of SQLite3::Database via DBConnection. DBConnection uses native SQLite3::Database methods (`execute`, `execute2`, `last_insert_row_id`) to allow WORM to perform complex SQL queries using heredocs. The `Searchable` and `Associatable` modules extend WORM::Base to provide an intuitive API.
 
 WORM emphasizes convention over configuration by setting sensible defaults for associations, but also allows for easy overrides if desired.

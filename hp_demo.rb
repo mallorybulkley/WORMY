@@ -20,14 +20,14 @@ HP_SQL_FILE = 'harry_potter.sql'
 
 DBConnection.open(HP_DB_FILE)
 
-class House < SQLObject
+class House < WORM::Base
   has_many :wizards
   has_many_through :pets, :wizards, :pets
 
   finalize!
 end
 
-class Wizard < SQLObject
+class Wizard < WORM::Base
   belongs_to :house
   has_many :pets,
     foreign_key: :owner_id
@@ -35,7 +35,7 @@ class Wizard < SQLObject
   finalize!
 end
 
-class Pet < SQLObject
+class Pet < WORM::Base
   belongs_to :owner,
     class_name: "Wizard"
 
