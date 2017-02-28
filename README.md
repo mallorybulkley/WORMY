@@ -1,5 +1,5 @@
 # WORM
-A lightweight Object-Relational Mapping (ORM) library for Ruby. Allows you to keep code DRY and easily perform database operations in an object-oriented manner. WORM emphasizes convention over configuration by setting sensible defaults.
+A lightweight Object-Relational Mapping (ORM) library for Ruby. Allows you to keep code DRY and easily perform database operations in an object-oriented manner.
 
 ## Demo
 1. From the root directory of this repo, open `pry` or `irb` in the console
@@ -34,6 +34,22 @@ Querying and updating the database is made easy with WORM::Base's methods like:
 * `#create`
 * `#save`
 * `#destroy`
+
+Perform custom model validations by adding a call to `validates` in your subclass definition:
+```
+class House < WORM::Base
+  has_many :wizards
+  has_many_through :pets, :wizards, :pets
+  validates :house_name
+
+  def house_name
+    ["Gryffindor", "Slytherin", "Ravenclaw", "Hufflepuff"].include?(self.name)
+  end
+
+  finalize!
+end
+```
+
 
 ## About WORM
 WORM opens a connection to a provided database file by instantiating a singleton of SQLite3::Database via DBConnection. DBConnection uses native SQLite3::Database methods (`execute`, `execute2`, `last_insert_row_id`) to allow WORM to perform complex SQL queries using heredocs. The `Searchable` and `Associatable` modules extend WORM::Base to provide an intuitive API.

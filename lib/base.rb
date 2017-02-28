@@ -79,6 +79,14 @@ module WORM
       @table_name = table_name
     end
 
+    def self.validates(*methods)
+      @validations = methods
+    end
+
+    def self.validations
+      @validations ||= []
+    end
+
     def attributes
       @attributes ||= {}
     end
@@ -124,6 +132,10 @@ module WORM
     end
 
     def save
+      self.class.validations.each do |method|
+        raise "Validation error" unless self.send(method)
+      end
+
       # if it alredy exists then update it, otherwise insert it
       id ? update : insert
     end
@@ -139,6 +151,14 @@ module WORM
         WHERE
           id = ?
       SQL
+    end
+
+    def valid?
+      self.class.validations.each do |method|
+        return false unless self.send(method)
+      end
+
+      true
     end
   end
 end

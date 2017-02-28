@@ -23,6 +23,11 @@ DBConnection.open(HP_DB_FILE)
 class House < WORM::Base
   has_many :wizards
   has_many_through :pets, :wizards, :pets
+  validates :house_name
+
+  def house_name
+    ["Gryffindor", "Slytherin", "Ravenclaw", "Hufflepuff"].include?(self.name)
+  end
 
   finalize!
 end
