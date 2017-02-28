@@ -28,6 +28,10 @@ class SQLObject
     .first.map(&:to_sym)
   end
 
+  def self.count
+    all.count
+  end
+
   def self.finalize!
     # NB: make sure to call finalize! at the end of any class that inherits from SQLObject
     columns.each do |col|
@@ -47,6 +51,14 @@ class SQLObject
     SQL
 
     parse_all(result).first
+  end
+
+  def self.first
+    all.first
+  end
+
+  def self.last
+    all.last
   end
 
   def self.parse_all(results)
