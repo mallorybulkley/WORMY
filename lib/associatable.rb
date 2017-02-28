@@ -42,11 +42,11 @@ module Associatable
     options = BelongsToOptions.new(name, options)
 
     define_method(name) do
-      foreign_key = self.send(options.foreign_key)
-      options.model_class.where(options.primary_key => foreign_key).first
+      key_value = self.send(options.foreign_key)
+      options.model_class.where(options.primary_key => key_value).first
     end
 
-    association_options[name] = options
+    self.association_options[name] = options
   end
 
   def has_many(name, options = {})
@@ -55,6 +55,8 @@ module Associatable
     define_method(name) do
       options.model_class.where(options.foreign_key => self.id)
     end
+
+    self.association_options[name] = options
   end
 
   def has_one_through(association_name, through_name, source_name)
@@ -62,7 +64,24 @@ module Associatable
       through_options = self.class.association_options[through_name]
       source_options = through_options.model_class.association_options[source_name]
 
-      source_options.model_class.where(source_options.primary_key => self.id).first
+      source_table = source_options.table_name
+      through_table = through_options.table_name
+      key_value = self.send(through_options.foreign_key)
+
+      results = DBConnection.execute(<<-SQL, key_value)
+        SELECT
+          #{source_table}.*
+        FROM
+          #{through_table}
+        JOIN
+          #{source_table}
+        ON
+          #{through_table}.#{source_options.foreign_key} = #{source_table}.#{source_options.primary_key}
+        WHERE
+          #{through_table}.#{through_options.primary_key} = ?
+      SQL
+
+      source_options.model_class.parse_all(results).first
     end
   end
 end
