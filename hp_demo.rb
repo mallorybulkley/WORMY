@@ -22,6 +22,7 @@ DBConnection.open(HP_DB_FILE)
 
 class House < SQLObject
   has_many :wizards
+  has_many_through :pets, :wizards, :pets
 
   finalize!
 end

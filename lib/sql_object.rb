@@ -29,7 +29,7 @@ class SQLObject
   end
 
   def self.finalize!
-    # make sure to call finalize! at the end of any class that inherits from SQLObject
+    # NB: make sure to call finalize! at the end of any class that inherits from SQLObject
     columns.each do |col|
       define_method(col) { attributes[col] }
       define_method("#{col}=") { |new_attr| attributes[col] = new_attr }
@@ -78,6 +78,20 @@ class SQLObject
     end
   end
 
+  def destroy
+    if self.class.find(id)
+      DBConnection.execute(<<-SQL)
+        DELETE
+        FROM
+          #{self.class.table_name}
+        WHERE
+          id = #{id}
+      SQL
+
+      self
+    end
+  end
+
   def insert
     col_names = self.class.columns.join(", ")
     question_marks = ["?"] * self.class.columns.count
@@ -109,5 +123,4 @@ class SQLObject
         id = ?
     SQL
   end
-
 end

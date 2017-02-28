@@ -36,9 +36,6 @@ class DBConnection
   end
 
   def self.execute2(*args)
-    # SQLite3::Database#execute2 returns an array
-    # first element is a list of the column names,
-    # followed by individual records in the DB
     print_query(*args)
     instance.execute2(*args)
   end
