@@ -11,10 +11,17 @@ A lightweight Object-Relational Mapping (ORM) library for Ruby. Allows you to ke
 * ActiveSupport::Inflector
 
 ## API
-Models can be easily connected to other models using associations:
-* `has_many`
-* `belongs_to`
-* `has_one_through`
+Associations between models are defined by simple class methods, like so:
+```
+class Pet < SQLObject
+  belongs_to :owner,
+    class_name: "Wizard"
+
+  has_one_through :house, :owner, :house
+
+  finalize!
+end
+```
 
 Querying and updating the database is made easy with SQLObject's methods like:
 * `::find`
