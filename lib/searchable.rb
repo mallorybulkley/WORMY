@@ -2,7 +2,9 @@ require_relative 'db_connection'
 require_relative 'sql_object'
 
 module Searchable
-  def where(params)
+  def where(params = {})
+    return all if params == {}
+    
     search_results = []
     where_line = params.keys.map { |key| "#{key} = ?" }.join(" AND ")
 
