@@ -4,7 +4,7 @@ A lightweight Object-Relational Mapping (ORM) library for Ruby. Allows you to ke
 ## Demo
 1. From the root directory of this repo, open `pry` or `irb` in the console
 2. `load hp_demo.rb`
-3. Use `hp_demo.rb` as a reference to run commands
+3. Use `hp_demo.rb` and the API section below as a reference to play around with the data
 
 ## Libraries
 * SQLite3
@@ -23,10 +23,15 @@ class Pet < SQLObject
 end
 ```
 
-Querying and updating the database is made easy with SQLObject's methods like:
+Querying and updating the database is made easy with WORM::SQLObject's methods like:
+* `::all`
+* `::count`
 * `::find`
+* `::first`
+* `::last`
 * `::where`
 * `#save`
+* `#destroy`
 
 ## About WORM
 WORM opens a connection to a provided database file by instantiating a singleton of SQLite3::Database via DBConnection. DBConnection uses native SQLite3::Database methods (`execute`, `execute2`, `last_insert_row_id`) to allow WORM to perform complex SQL queries using heredocs. The `Searchable` and `Associatable` modules extend SQLObject to provide an intuitive API.

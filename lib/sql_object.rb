@@ -33,7 +33,7 @@ class SQLObject
   end
 
   def self.finalize!
-    # NB: make sure to call finalize! at the end of any class that inherits from SQLObject
+    # make sure to call finalize! at the end of any class that inherits from SQLObject
     columns.each do |col|
       define_method(col) { attributes[col] }
       define_method("#{col}=") { |new_attr| attributes[col] = new_attr }
