@@ -3,7 +3,7 @@ A lightweight Object-Relational Mapping (ORM) library for Ruby. Allows you to ke
 
 ## Demo
 1. From the root directory of this repo, open `pry` or `irb` in the console
-2. `load hp_demo.rb`
+2. `load 'hp_demo.rb'`
 3. Use `hp_demo.rb` and the API section below as a reference to play around with the data
 
 ## Libraries
