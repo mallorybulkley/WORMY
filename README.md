@@ -6,6 +6,12 @@ A lightweight Object-Relational Mapping (ORM) library for Ruby. Allows you to ke
 2. `load 'hp_demo.rb'`
 3. Use `hp_demo.rb` and the API section below as a reference to play around with the data
 
+## How to Use WORM
+* Navigate to the folder in your directory where you would like your .db database file to be saved.
+* If you have an existing database.rb file you need to rewrite, run `rm database.db`
+* Run `cat '{YOUR_SQL_FILE_NAME}' | sqlite3 'database.db'` (replacing {YOUR_SQL_FILE_NAME} with your own .sql file)
+* Then, in your project, open a connection with `DBConnection.open('database.db')`
+
 ## Libraries
 * SQLite3
 * ActiveSupport::Inflector

@@ -1,7 +1,7 @@
 require_relative 'lib/base'
 
-HP_DB_FILE = 'harry_potter.db'
-HP_SQL_FILE = 'harry_potter.sql'
+DB_FILE = 'harry_potter.db'
+SQL_FILE = 'harry_potter.sql'
 
 # SCHEMA
 
@@ -15,10 +15,10 @@ HP_SQL_FILE = 'harry_potter.sql'
 # Columns: 'id', 'name', 'owner_id'
 
 
-`rm '#{HP_DB_FILE}'`
-`cat '#{HP_SQL_FILE}' | sqlite3 '#{HP_DB_FILE}'`
+`rm '#{DB_FILE}'`
+`cat '#{SQL_FILE}' | sqlite3 '#{DB_FILE}'`
 
-DBConnection.open(HP_DB_FILE)
+DBConnection.open(DB_FILE)
 
 class House < WORM::Base
   has_many :wizards

@@ -2,11 +2,11 @@ require 'sqlite3'
 
 PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
 ROOT_FOLDER = File.join(File.dirname(__FILE__), '..')
-SQL_FILE = File.join(ROOT_FOLDER, 'harry_potter.sql')
-DB_FILE = File.join(ROOT_FOLDER, 'harry_potter.db')
 
 module WORM
   class DBConnection
+    attr_accessor :seed_file, :db_file
+
     def self.open(db_file_name)
       @db = SQLite3::Database.new(db_file_name)
       @db.results_as_hash = true
@@ -43,6 +43,12 @@ module WORM
 
     def self.last_insert_row_id
       instance.last_insert_row_id
+    end
+
+
+    def configure(seed_file, db_file)
+      @seed_file = seed_file
+      @db_file = db_file
     end
 
     private
