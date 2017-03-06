@@ -8,7 +8,7 @@ module Searchable
     search_results = []
     where_line = params.keys.map { |key| "#{key} = ?" }.join(" AND ")
 
-    results = DBConnection.execute(<<-SQL, *params.values)
+    results = WORM::DBConnection.execute(<<-SQL, *params.values)
       SELECT
         *
       FROM

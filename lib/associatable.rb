@@ -59,16 +59,16 @@ module Associatable
     self.association_options[name] = options
   end
 
-  def has_one_through(association_name, through_name, source_name)
+  def has_one_through(association_name, through:, source:)
     define_method(association_name) do
-      through_options = self.class.association_options[through_name]
-      source_options = through_options.model_class.association_options[source_name]
+      through_options = self.class.association_options[through]
+      source_options = through_options.model_class.association_options[source]
 
       source_table = source_options.table_name
       through_table = through_options.table_name
       key_value = self.send(through_options.foreign_key)
 
-      results = DBConnection.execute(<<-SQL, key_value)
+      results = WORM::DBConnection.execute(<<-SQL, key_value)
         SELECT
           #{source_table}.*
         FROM
@@ -85,15 +85,15 @@ module Associatable
     end
   end
 
-  def has_many_through(association_name, through_name, source_name)
+  def has_many_through(association_name, through:, source:)
     define_method(association_name) do
-      through_options = self.class.association_options[through_name]
-      source_options = through_options.model_class.association_options[source_name]
+      through_options = self.class.association_options[through]
+      source_options = through_options.model_class.association_options[source]
 
       source_table = source_options.table_name
       through_table = through_options.table_name
 
-      results = DBConnection.execute(<<-SQL, self.id)
+      results = WORM::DBConnection.execute(<<-SQL, self.id)
         SELECT
           #{source_table}.*
         FROM
@@ -105,7 +105,7 @@ module Associatable
         WHERE
           #{through_table}.#{through_options.foreign_key} = ?
       SQL
-      
+
       source_options.model_class.parse_all(results)
     end
   end

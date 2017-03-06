@@ -1,4 +1,5 @@
-require_relative 'lib/base'
+require_relative '../lib/base'
+require_relative '../lib/db_connection'
 
 DB_FILE = 'harry_potter.db'
 SQL_FILE = 'harry_potter.sql'
@@ -18,11 +19,13 @@ SQL_FILE = 'harry_potter.sql'
 `rm '#{DB_FILE}'`
 `cat '#{SQL_FILE}' | sqlite3 '#{DB_FILE}'`
 
-DBConnection.open(DB_FILE)
+WORM::DBConnection.open(DB_FILE)
 
 class House < WORM::Base
   has_many :wizards
-  has_many_through :pets, :wizards, :pets
+  has_many_through :pets,
+    through: :wizards,
+    source: :pets
   validates :house_name
 
   def house_name
@@ -44,7 +47,9 @@ class Pet < WORM::Base
   belongs_to :owner,
     class_name: "Wizard"
 
-  has_one_through :house, :owner, :house
+  has_one_through :house,
+    through: :owner,
+    source: :house
 
   finalize!
 end
