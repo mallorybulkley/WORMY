@@ -1,4 +1,4 @@
-# WORM
+# WORM 🐛
 A lightweight Object-Relational Mapping (ORM) library for Ruby. Allows you to keep code DRY and easily perform database operations in an object-oriented manner.
 
 ## Demo
