@@ -3,7 +3,7 @@ require 'sqlite3'
 PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
 ROOT_FOLDER = File.join(File.dirname(__FILE__), '..')
 
-module WORM
+module WORMY
   class DBConnection
     attr_accessor :seed_file, :db_file
 

@@ -68,7 +68,7 @@ module Associatable
       through_table = through_options.table_name
       key_value = self.send(through_options.foreign_key)
 
-      results = WORM::DBConnection.execute(<<-SQL, key_value)
+      results = WORMY::DBConnection.execute(<<-SQL, key_value)
         SELECT
           #{source_table}.*
         FROM
@@ -93,7 +93,7 @@ module Associatable
       source_table = source_options.table_name
       through_table = through_options.table_name
 
-      results = WORM::DBConnection.execute(<<-SQL, self.id)
+      results = WORMY::DBConnection.execute(<<-SQL, self.id)
         SELECT
           #{source_table}.*
         FROM

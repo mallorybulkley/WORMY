@@ -1,5 +1,4 @@
-require_relative '../lib/base'
-require_relative '../lib/db_connection'
+require 'wormy'
 
 DB_FILE = 'harry_potter.db'
 SQL_FILE = 'harry_potter.sql'
@@ -19,9 +18,9 @@ SQL_FILE = 'harry_potter.sql'
 `rm '#{DB_FILE}'`
 `cat '#{SQL_FILE}' | sqlite3 '#{DB_FILE}'`
 
-WORM::DBConnection.open(DB_FILE)
+WORMY::DBConnection.open(DB_FILE)
 
-class House < WORM::Base
+class House < WORMY::Base
   has_many :wizards
   has_many_through :pets,
     through: :wizards,
@@ -35,7 +34,7 @@ class House < WORM::Base
   finalize!
 end
 
-class Wizard < WORM::Base
+class Wizard < WORMY::Base
   belongs_to :house
   has_many :pets,
     foreign_key: :owner_id
@@ -43,7 +42,7 @@ class Wizard < WORM::Base
   finalize!
 end
 
-class Pet < WORM::Base
+class Pet < WORMY::Base
   belongs_to :owner,
     class_name: "Wizard"
 

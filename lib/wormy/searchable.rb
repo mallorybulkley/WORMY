@@ -1,5 +1,5 @@
 require_relative 'db_connection'
-require_relative 'base'
+require 'wormy'
 
 module Searchable
   def where(params = {})
@@ -8,7 +8,7 @@ module Searchable
     search_results = []
     where_line = params.keys.map { |key| "#{key} = ?" }.join(" AND ")
 
-    results = WORM::DBConnection.execute(<<-SQL, *params.values)
+    results = WORMY::DBConnection.execute(<<-SQL, *params.values)
       SELECT
         *
       FROM

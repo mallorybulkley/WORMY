@@ -1,9 +1,9 @@
 require 'active_support/inflector'
-require_relative 'db_connection'
-require_relative 'searchable'
-require_relative 'associatable'
+require 'wormy/db_connection'
+require 'wormy/searchable'
+require 'wormy/associatable'
 
-module WORM
+module WORMY
   class Base
     extend Searchable
     extend Associatable
@@ -38,7 +38,7 @@ module WORM
     end
 
     def self.finalize!
-      # make sure to call finalize! at the end of any class that inherits from WORM::Base
+      # make sure to call finalize! at the end of any class that inherits from WORMY::Base
       columns.each do |col|
         define_method(col) { attributes[col] }
         define_method("#{col}=") { |new_attr| attributes[col] = new_attr }
