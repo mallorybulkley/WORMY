@@ -9,6 +9,6 @@ Gem::Specification.new do |s|
   s.files        = Dir['{lib}/**/*.rb', 'LICENSE', '*.md']
   s.require_path = 'lib'
   s.homepage    =
-    'https://github.com/mallorybulkley/WORM'
+    'https://github.com/mallorybulkley/WORMY'
   s.license     = 'MIT'
 end
