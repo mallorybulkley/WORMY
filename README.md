@@ -1,6 +1,10 @@
 # WORMY 🐛
 A lightweight Object-Relational Mapping (ORM) library for Ruby. Allows you to keep code DRY and easily perform database operations in an object-oriented manner.
 
+```
+gem install wormy
+```
+
 ## Demo
 1. From the demo directory of this repo, open `pry` or `irb` in the console
 2. `load 'hp_demo.rb'`
